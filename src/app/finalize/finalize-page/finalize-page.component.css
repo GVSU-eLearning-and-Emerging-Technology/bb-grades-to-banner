@@ -1,0 +1,30 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 3rem;
+}
+
+div.card {
+	width: auto;
+}
+
+.data-table {
+	display: grid;
+	grid-template-columns: 20rem 10rem 10rem 15rem;
+	grid-template-rows: 1fr;
+	grid-template-areas: "header header header header" "main main main main";
+	align-items: stretch;
+}
+
+header {
+	font-weight: bold;
+	display: contents;
+	grid-area: header;
+}
+
+header > div {
+	padding: 1rem;
+	color: var(--bs-white);
+	background: var(--bs-secondary);
+}

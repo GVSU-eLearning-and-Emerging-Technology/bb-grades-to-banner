@@ -18,6 +18,10 @@ yarn-error.log
 .c9/
 *.launch
 .settings/
+.nova/
+.nova/*
+.nova/Configuration.json
+.nova
 *.sublime-workspace
 
 # Visual Studio Code

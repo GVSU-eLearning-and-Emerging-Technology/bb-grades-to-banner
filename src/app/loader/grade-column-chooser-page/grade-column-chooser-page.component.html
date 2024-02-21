@@ -1,0 +1,12 @@
+<div class="card text-bg-light">
+	<div class="card-header p-3">
+	    <h5 class="card-title mb-0">Which column contains the grades?</h5>
+	</div>
+	<div class="card-body">
+	    <div class="fieldlist">
+		@for (field of possibleGradeFieldNames_(); track field) {
+			<button type="button" class="btn btn-secondary" (click)="selectGradeColumn(field)">{{field}}</button>
+		}
+		</div>
+	</div>
+</div>

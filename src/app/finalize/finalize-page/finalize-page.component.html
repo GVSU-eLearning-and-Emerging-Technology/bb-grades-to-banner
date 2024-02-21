@@ -1,0 +1,23 @@
+<div class="card text-bg-light">
+	<div class="card-header p-3">
+	    <h5 class="card-title mb-0">Finalize your grades</h5>
+	</div>
+	<div class="data-table">
+	    <header>
+		    <div>Student</div>
+		    <div>G Number</div>
+		    <div>Grade</div>
+		    <div>Last Attended Date</div>
+	    </header>
+    		@for (row of mergedData_().rows; track row; let e = $even, index = $index) {
+    			<data-row
+			    [rowData]="row"
+			    [isEven]="e"
+			    (onUpdate)="doUpdateRow(index, $event)">
+		    </data-row>
+    		}
+	</div>
+	<div class="card-footer p-3 d-flex justify-content-end">
+		<button type="button" class="btn btn-primary" (click)="doSaveBannerFile()">Save Banner File</button>
+	</div>
+</div>

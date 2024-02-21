@@ -1,0 +1,17 @@
+:host {
+	display: contents;
+}
+
+div {
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+}
+
+div.even {
+	background: #fff;
+}
+
+form {
+	display: contents;
+}

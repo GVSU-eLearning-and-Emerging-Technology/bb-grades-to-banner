@@ -1,0 +1,18 @@
+@if (!dataService.bannerData_()) {
+	<div class="file-loader">
+		<i class="fa-duotone fa-flag-pennant fa-flip" style="--fa-animation-duration:10s;"></i>
+		<div>Drop a Banner template file here<br/><b>or</b><br/>Click to open one</div>
+		<input type="file"
+			accept=".xls,.xlsx,.txt"
+			class="custom-file-input"
+			(change)="onChangeFile($event)"/>
+	</div>
+} @else {
+	<div class="file-loaded">
+		<i class="fa-duotone fa-check"></i>
+		<div>
+			<div>Banner file loaded</div>
+			<div class="small">{{dataService.bannerData_()!.fileName!}}</div>
+		</div>
+	</div>
+}

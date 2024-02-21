@@ -1,33 +1,51 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": false,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+	"compileOnSave": false,
+	"compilerOptions": {
+		"baseUrl": "./",
+		"outDir": "./dist/out-tsc",
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"declaration": false,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"importHelpers": true,
+		"target": "ES2022",
+		"module": "ES2022",
+		"useDefineForClassFields": false,
+		"lib": [
+			"ES2022",
+			"dom"
+		],
+		"paths": {
+			"@models/*": ["src/app/shared/models/*"],
+			"@services/*": ["src/app/shared/services/*"],
+			"@brokers/*": ["src/app/shared/brokers/*"],
+			"@interfaces/*": ["src/app/shared/interfaces/*"],
+			"@types/*": ["src/app/shared/types/*"],
+			"@guards/*": ["src/app/shared/guards/*"],
+			"@managers/*": ["src/app/shared/managers/*"],
+			"@decorators/*": ["src/app/shared/decorators/*"],
+			"@components/*": ["src/app/shared/components/*"],
+			"@animations/*": ["src/app/shared/animations/*"],
+			"@operators/*": ["src/app/shared/operators/*"],
+			"@resolvers/*": ["src/app/shared/resolvers/*"],
+			"@enums/*": ["src/app/shared/enums/*"],
+			"@functions/*": ["src/app/shared/functions/*"],
+			"@shared/*": ["src/app/shared/*"]
+		}
+
+	},
+	"angularCompilerOptions": {
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"strictTemplates": true
+	}
 }

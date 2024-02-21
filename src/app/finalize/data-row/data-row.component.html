@@ -1,0 +1,6 @@
+<form [formGroup]="editRowForm">
+	<div [class]="{'even': isEven}"><span>{{rowData[2]}}</span></div>
+	<div [class]="{'even': isEven}"><span>{{rowData[3]}}</span></div>
+	<div [class]="{'even': isEven}"><input class="form-control" type="text" formControlName="grade"/></div>
+	<div [class]="{'even': isEven}"><input class="form-control" type="text" formControlName="lastAttendedDate"/></div>
+</form>

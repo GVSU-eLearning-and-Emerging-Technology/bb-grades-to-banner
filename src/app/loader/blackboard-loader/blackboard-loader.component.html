@@ -1,0 +1,18 @@
+@if (!dataService.blackboardData_()) {
+	<div class="file-loader">
+		<i class="fa-duotone fa-chalkboard fa-flip" style="--fa-animation-duration:10s;"></i>
+		<div>Drop a Blackboard Gradebook file here<br/><b>or</b><br/>Click to open one</div>
+		<input type="file"
+			accept=".xls,.xlsx,.txt"
+			class="custom-file-input"
+			(change)="onChangeFile($event)"/>
+	</div>
+} @else {
+	<div class="file-loaded">
+		<i class="fa-duotone fa-check"></i>
+		<div>
+			<div>Blackboard file loaded</div>
+			<div class="small">{{dataService.blackboardData_()!.fileName!}}</div>
+		</div>
+	</div>
+}
