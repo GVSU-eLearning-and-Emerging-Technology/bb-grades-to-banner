@@ -74,5 +74,7 @@ export class FinalizePageComponent {
 		this.router.navigate(['loader']);
 	}
 
+	// QUESTION: do we need to do anything special to handle C/NC courses?
+	// TODO: add way to toggle whether last access -> last attended
 
 }
