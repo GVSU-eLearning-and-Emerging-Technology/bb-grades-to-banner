@@ -9,6 +9,7 @@ import { LoaderModule } from './loader/loader.module';
 import { DataService } from '@services/data.service';
 import { FinalizeModule } from './finalize/finalize.module';
 import { ConfigurationService } from '@services/configuration.service';
+import { NotificationService } from '@services/notification.service';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ConfigurationService } from '@services/configuration.service';
 	],
 	providers: [
 		DataService,
-		ConfigurationService
+		ConfigurationService,
+		NotificationService
 	],
 	bootstrap: [AppComponent]
 })

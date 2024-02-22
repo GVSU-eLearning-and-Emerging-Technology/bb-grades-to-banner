@@ -17,8 +17,16 @@ export class DataService {
 		this.blackboardData_.set(data);
 	}
 
+	clearBlackboardData() {
+		this.blackboardData_.set(null);
+	}
+
 	setBannerData(data: DataTable) {
 		this.bannerData_.set(data);
+	}
+
+	clearBannerData() {
+		this.bannerData_.set(null);
 	}
 
 	setBlackboardGradeField(fieldName: string) {

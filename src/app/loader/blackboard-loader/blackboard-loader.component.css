@@ -17,7 +17,7 @@
 }
 
 .file-loader:hover {
-	border:1rem dashed rgba(0,0,0,.46);
+	border:1rem dashed var(--bs-primary-border-subtle);
 }
 
 :host > div i {
@@ -54,5 +54,19 @@
 }
 
 .file-loaded {
-	background: var(--bs-success-bg-subtle);
+	background: white;
+	border: 1px solid var(--bs-secondary);
+}
+
+.file-loaded > i {
+	color: var(--bs-primary) !important;
+}
+
+@media (max-width: 767.98px) {
+	:host > div {
+		width:calc(100vw - 2rem);
+		padding: 0.5rem 1rem;
+		border-radius:2rem;
+
+	}
 }

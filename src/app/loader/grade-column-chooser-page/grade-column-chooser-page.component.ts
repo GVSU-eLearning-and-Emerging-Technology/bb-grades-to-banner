@@ -23,6 +23,10 @@ export class GradeColumnChooserPageComponent {
 		this.router.navigate(['finalize']);
 	}
 
-	// TODO: button for going back to choose files
+	doStartOver() {
+		this.dataService.clearBlackboardData();
+		this.dataService.clearBannerData();
+		this.router.navigate(['loader']);
+	}
 
 }

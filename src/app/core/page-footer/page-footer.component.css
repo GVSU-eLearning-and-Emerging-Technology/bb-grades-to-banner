@@ -1,0 +1,26 @@
+:host {
+	width: 100%;
+	display: block;
+}
+
+footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem;
+	color: var(--bs-gray-500);
+	font-size: 80%;
+}
+
+a {
+	color: var(--bs-secondary);
+}
+
+a:hover {
+	color: var(--bs-warning);
+}
+
+a:focus, a:active {
+	color: var(--bs-primary);
+}

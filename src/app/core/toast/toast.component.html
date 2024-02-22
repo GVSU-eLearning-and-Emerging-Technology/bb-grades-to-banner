@@ -1,0 +1,24 @@
+<div class="toast {{ type }}" #toast>
+	@if (!!title) {
+		<div class="toast-header justify-content-between">
+			<div class="d-flex align-items-center gap-2">
+				@if (!!icon) {
+					<i class="{{ icon }}"></i>
+				}
+				<span class="fw-bold">{{ title }}</span>
+			</div>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"><i class="fa-solid fa-times fa-lg"></i></button>
+		</div>
+	}
+	<div class="toast-body d-flex justify-content-between align-items-start gap-2">
+		<div class="d-flex gap-2">
+			@if (!!icon && !title) {
+				<i class="{{ icon }}"></i>
+			}
+			<span>{{ message }}</span>
+		</div>
+		@if (!title) {
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"><i class="fa-solid fa-times fa-lg"></i></button>
+		}
+	</div>
+</div>

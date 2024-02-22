@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+	font-family: "Noto Serif";
+	src: url("https://ultra.content.blackboardcdn.com/ultra/static/fonts/noto-serif/noto-serif-regular.woff") format('woff');
+}
+@font-face {
+	font-family: "Open Sans";
+	src: url("https://ultra.content.blackboardcdn.com/ultra/static/fonts/open-sans/open-sans-regular.woff") format('woff');
+	font-weight:normal;
+}
+@font-face {
+	font-family: "Open Sans";
+	src: url("https://ultra.content.blackboardcdn.com/ultra/static/fonts/open-sans/open-sans-300.woff") format('woff');
+	font-weight:300;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: url("https://ultra.content.blackboardcdn.com/ultra/static/fonts/open-sans/open-sans-600.woff") format('woff');
+	font-weight:bold;
+}
+
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+body, html {
+	height:100%
+}
+
+html {
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+	font-family: "Noto Serif", serif;
+	font-size: clamp(2rem, 3vw, 3vw);
+}
+
+h5 {
+	font-family: "Noto Serif", serif;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+router-outlet + * {
+	flex-grow:1;
+}
+
+app-root {
+	display: contents;
+}
+
+.card-header {
+	background-color: var(--bs-primary-bg-subtle);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.card-header > i {
+	font-size: 4rem;
+	color: rgba(0, 0, 0, 0.25);
+}

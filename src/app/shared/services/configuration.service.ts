@@ -5,6 +5,11 @@ import { GradeSchema } from '@models/grade-schema.model';
 	providedIn: 'root'
 })
 export class ConfigurationService {
+	public appNameFull = "BbGradesToBanner";
+	public appNameShort = "BbGradesToBanner";
+	public appVersionText = "v1.0.0";
+
+
 	public defaultGradeSchema = new GradeSchema([
 		{
 			grade: "F",

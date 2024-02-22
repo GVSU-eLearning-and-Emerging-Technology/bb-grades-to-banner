@@ -71,12 +71,12 @@ export class DataTable {
 		return this.column(n!);
 	}
 
-	filter(fn: (x: CellValue[]) => boolean): DataTable {
+	filterRows(fn: (x: CellValue[]) => boolean): DataTable {
 		let filtered = new DataTable([this.fieldNames, ...this.rows.filter(fn)]);
 		return filtered;
 	}
 
-	toMap(keyField: string, fields: string[]): DataRowRecord  {
+	toRecords(keyField: string, fields: string[]): DataRowRecord  {
 		const keyIndex = this.fieldIndex(keyField);
 		if (!keyIndex) {
 			return {};
@@ -117,7 +117,7 @@ export class DataTable {
 		return newTable;
 	}
 
-	copyFromColumnToColumn(fromField: string, toField: string): DataTable {
+	copyFromFieldToField(fromField: string, toField: string): DataTable {
 		let newTable = new DataTable([this.fieldNames, ...this.rows]);
 		const fromIndex = newTable.fieldIndex(fromField);
 		const toIndex = newTable.fieldIndex(toField);
@@ -139,7 +139,7 @@ export class DataTable {
 		this.rows[row][column] = value;
 	}
 
-	transformField(fieldName: string, fn: (x: CellValue) => CellValue): DataTable {
+	transformFieldValues(fieldName: string, fn: (x: CellValue) => CellValue): DataTable {
 		const index = this.fieldIndex(fieldName);
 		if (index !== undefined) {
 			this.rows = this.rows.map((r: CellValue[]): CellValue[] => {
@@ -151,7 +151,7 @@ export class DataTable {
 		return this;
 	}
 
-	export(): any[][] {
+	exportForXslx(): any[][] {
 		return [
 			this.fieldNames.map((v) => ({
 				value: v
@@ -164,7 +164,7 @@ export class DataTable {
 		];
 	}
 
-	omit(fields: string[]): DataTable {
+	omitFields(fields: string[]): DataTable {
 		let newTable = new DataTable([this.fieldNames, ...this.rows]);
 		fields.forEach((f: string) => {
 			const index = newTable.fieldIndex(f);

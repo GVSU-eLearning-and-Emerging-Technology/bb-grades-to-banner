@@ -2,3 +2,8 @@
 	<blackboard-loader></blackboard-loader>
 	<banner-loader></banner-loader>
 </div>
+@if (!!dataService.blackboardData_() || !!dataService.bannerData_()) {
+	<div class="mt-4">
+		<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
+	</div>
+}
