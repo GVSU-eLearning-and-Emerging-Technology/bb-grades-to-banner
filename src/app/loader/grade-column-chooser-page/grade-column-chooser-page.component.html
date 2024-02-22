@@ -3,7 +3,7 @@
 		<i class="fa-duotone fa-table-columns"></i>
 	    <h5 class="card-title mb-0">Which column contains student grades?</h5>
 	</div>
-	<div class="card-body">
+	<div class="card-body p-4">
 	    <div class="fieldlist">
 		@for (field of possibleGradeFieldNames_(); track field) {
 			<button type="button" class="btn btn-secondary btn-tall" (click)="selectGradeColumn(field)">{{field}}</button>

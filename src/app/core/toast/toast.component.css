@@ -20,10 +20,10 @@
 }
 
 .toast.blue {
-	--bs-toast-bg: var(--cd-blue);
-	--bs-toast-color: var(--cd-black);
-	--bs-toast-header-bg: rgba(0,0,0,.15);
-	--bs-toast-header-color: var(--cd-black);
+	--bs-toast-bg: var(--bs-primary);
+	--bs-toast-color: white;
+	--bs-toast-header-bg: var(--bs-primary);
+	--bs-toast-header-color: rgba(255, 255, 255, 0.75);
 }
 
 

@@ -19,6 +19,14 @@
 	font-weight:bold;
 }
 
+:root {
+	--bs-primary: #0065A7;
+	--bs-primary-bg-subtle: #E1EFFF;
+}
+
+.btn-primary {
+	--bs-btn-bg: var(--bs-primary);
+}
 
 body {
 	display: flex;

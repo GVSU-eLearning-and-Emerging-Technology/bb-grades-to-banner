@@ -6,6 +6,7 @@
 
 div.card {
 	-x-min-width: clamp(40rem, 40rem, 95vw);
+	margin: 1rem;
 }
 
 div.fieldlist {

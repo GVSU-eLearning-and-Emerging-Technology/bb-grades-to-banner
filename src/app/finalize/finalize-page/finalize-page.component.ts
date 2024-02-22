@@ -62,7 +62,7 @@ export class FinalizePageComponent {
 		await writeXlsxFile(this.mergedData_().omitFields([this.gradeField, "Last Access"]).exportForXslx(), {
 			fileName: 'Import this into Banner.xlsx'
 		});
-		this.notificationService.success({
+		this.notificationService.blue({
 			message: "Your Banner file has been downloaded and is ready to be imported."
 		});
 
