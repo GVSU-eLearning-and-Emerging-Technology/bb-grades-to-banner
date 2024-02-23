@@ -64,7 +64,7 @@ export class ConfigurationService {
 		{
 			grade: "A",
 			minimumPercentage: 94,
-			maximumPercentage: 100
+			maximumPercentage: 1000
 		},
 	]);
 
