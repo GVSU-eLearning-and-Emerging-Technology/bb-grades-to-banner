@@ -27,3 +27,17 @@ header > div {
 	color: var(--bs-white);
 	background: var(--bs-secondary);
 }
+
+.form-check-input {
+	background-color: var(--bs-white);
+	border-color: var(--bs-dark);
+	transform: scale(1.5);
+}
+
+.form-switch .form-check-input {
+	--bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%230065A7'/%3e%3c/svg%3e");
+}
+
+.form-switch .form-check-input:checked {
+	--bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%230065A7'/%3e%3c/svg%3e");
+}

@@ -9,6 +9,18 @@ export class ConfigurationService {
 	public appNameShort = "BbGradesToBanner";
 	public appVersionText = "v1.0.0";
 
+	public creditNoCreditGradeSchema = new GradeSchema([
+		{
+			grade: "NC",
+			minimumPercentage: 0,
+			maximumPercentage: 73
+		},
+		{
+			grade: "CR",
+			minimumPercentage: 73,
+			maximumPercentage: 1000
+		},
+	]);
 
 	public defaultGradeSchema = new GradeSchema([
 		{

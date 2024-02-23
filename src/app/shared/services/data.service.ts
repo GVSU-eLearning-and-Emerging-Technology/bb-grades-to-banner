@@ -10,6 +10,7 @@ export class DataService {
 	public bannerData_ = signal<DataTable | null>(null);
 
 	public blackboardGradeField_ = signal<string | null>(null);
+	// public usesCreditNoCredit_ = signal(false);
 
 	constructor() {}
 
@@ -32,5 +33,9 @@ export class DataService {
 	setBlackboardGradeField(fieldName: string) {
 		this.blackboardGradeField_.set(fieldName);
 	}
+
+	// setUsesCreditNoCredit(b: boolean) {
+	// 	this.usesCreditNoCredit_.set(b);
+	// }
 
 }

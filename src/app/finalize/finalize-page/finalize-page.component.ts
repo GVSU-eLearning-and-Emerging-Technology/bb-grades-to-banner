@@ -1,4 +1,4 @@
-import { Component, Signal, WritableSignal, computed, effect } from '@angular/core';
+import { Component, OnDestroy, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTable } from '@models/data-table.model';
 import { DataService } from '@services/data.service';
@@ -7,15 +7,22 @@ import writeXlsxFile from 'write-excel-file';
 import { DateTime } from 'luxon';
 import { ConfigurationService } from '@services/configuration.service';
 import { NotificationService } from '@services/notification.service';
+import { GradeSchema } from '@models/grade-schema.model';
+import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-finalize-page',
 	templateUrl: './finalize-page.component.html',
 	styleUrl: './finalize-page.component.css'
 })
-export class FinalizePageComponent {
+export class FinalizePageComponent implements OnDestroy {
+
+	private destroyed$ = new Subject<boolean>();
 
 	public gradeField: string = "";
+	public usesCreditNoCredit_ = signal(false);
+	public schemaToggle = new FormControl(false);
 
 	public mergedData_ = computed < DataTable > (() => {
 		let originalBlackboardData = this.dataService.blackboardData_() !;
@@ -24,6 +31,10 @@ export class FinalizePageComponent {
 		});
 		this.gradeField = this.dataService.blackboardGradeField_() !;
 
+		// QUESTION: should we move this toggle to a separate step of the process, perhaps when we're choosing the grade column?
+		const gradeSchema: GradeSchema = (this.usesCreditNoCredit_() ? this.configService.creditNoCreditGradeSchema : this.configService.defaultGradeSchema);
+
+
 		const neededStudentIDs = originalBannerData!.field("Student ID");
 		const blackboardData = originalBlackboardData
 			.filterRows((row: CellValue[]): boolean => {
@@ -31,7 +42,7 @@ export class FinalizePageComponent {
 			})
 			.transformFieldValues(this.gradeField, (rawGrade: CellValue): CellValue => {
 				if (!!rawGrade && !!(rawGrade as string).match(/\d/)) {
-					return this.configService.defaultGradeSchema.gradeForPercentage(+rawGrade) ?? "";
+					return gradeSchema.gradeForPercentage(+rawGrade) ?? "";
 				} else {
 					return rawGrade;
 				}
@@ -50,7 +61,19 @@ export class FinalizePageComponent {
 		return mergedBannerData!;
 	});
 
-	constructor(private configService: ConfigurationService, private dataService: DataService, private router: Router, private notificationService: NotificationService) {}
+	constructor(private configService: ConfigurationService, private dataService: DataService, private router: Router, private notificationService: NotificationService) {
+
+		this.schemaToggle.valueChanges
+			.subscribe((changes: any) => {
+				this.usesCreditNoCredit_.set(changes);
+			})
+	}
+
+	ngOnDestroy(): void {
+		this.destroyed$.next(true);
+		this.destroyed$.complete();
+	}
+
 
 	doUpdateRow(n: number, data: Record < string, string > ) {
 		this.mergedData_().updateCell(n, 6, data['grade']);
@@ -74,7 +97,7 @@ export class FinalizePageComponent {
 		this.router.navigate(['loader']);
 	}
 
-	// QUESTION: do we need to do anything special to handle C/NC courses?
+	// QUESTION: do we need to do anything special to handle CR/NC courses?
 	// TODO: add way to toggle whether last access -> last attended
 
 }
