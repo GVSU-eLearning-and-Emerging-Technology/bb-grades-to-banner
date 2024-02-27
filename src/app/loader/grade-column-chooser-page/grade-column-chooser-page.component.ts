@@ -1,7 +1,13 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { CellValue } from '@shared/types/cell-value';
+import { GradeSchemaType } from '@shared/models/grade-schema.model';
+import { ConfigurationService } from '@services/configuration.service';
+
+
+type State = "column" | "schema" | "dates";
+type YesNo = "yes" | "no";
 
 @Component({
 	selector: 'app-grade-column-chooser-page',
@@ -10,18 +16,37 @@ import { CellValue } from '@shared/types/cell-value';
 })
 export class GradeColumnChooserPageComponent {
 
+	public state_ = signal<State>('column');
+
 	public possibleGradeFieldNames_ = computed<CellValue[]>(() => {
 		let allFieldNames = this.dataService.blackboardData_()?.fieldNames ?? [];
 		return allFieldNames.slice(allFieldNames.length > 6 ? 6 : 0);
 	});
 
 
-	constructor(private dataService: DataService, private router: Router) {}
+	constructor(private dataService: DataService, private router: Router, private configService: ConfigurationService) {
+		this.state_.set('column');
+	}
 
 	selectGradeColumn(fieldName: CellValue) {
 		this.dataService.setBlackboardGradeField(fieldName as string);
+		this.state_.set('schema');
+	}
+
+	selectGradeSchema(type: GradeSchemaType) {
+		this.dataService.setGradeSchema(
+			type == "A-F"
+			? this.configService.creditNoCreditGradeSchema
+			: this.configService.defaultGradeSchema
+		);
+		this.state_.set('dates');
+	}
+
+	selectCopyBlackboardDates(type: YesNo) {
+		this.dataService.setCopyBlackboardDates(type == "yes");
 		this.router.navigate(['finalize']);
 	}
+
 
 	doStartOver() {
 		this.dataService.clearBlackboardData();

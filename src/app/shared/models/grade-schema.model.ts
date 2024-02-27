@@ -4,6 +4,8 @@ interface GradeRange {
 	maximumPercentage: number,
 }
 
+export type GradeSchemaType = "A-F" | "CR/NC";
+
 export class GradeSchema {
 	private ranges: GradeRange[] = [];
 

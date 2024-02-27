@@ -1,16 +1,56 @@
-<div class="card text-bg-light">
-	<div class="card-header p-3">
-		<i class="fa-duotone fa-table-columns"></i>
-	    <h5 class="card-title mb-0">Which column contains student grades?</h5>
-	</div>
-	<div class="card-body p-4">
-	    <div class="fieldlist">
-		@for (field of possibleGradeFieldNames_(); track field) {
-			<button type="button" class="btn btn-secondary btn-tall" (click)="selectGradeColumn(field)">{{field}}</button>
-		}
+@switch (state_()) {
+
+	@case ('column') {
+		<div class="card text-bg-light">
+			<div class="card-header p-3">
+				<i class="fa-duotone fa-table-columns"></i>
+	    		<h5 class="card-title mb-0">Which column contains student grades?</h5>
+			</div>
+			<div class="card-body p-4">
+	    		<div class="fieldlist">
+				@for (field of possibleGradeFieldNames_(); track field) {
+					<button type="button" class="btn btn-secondary btn-tall" (click)="selectGradeColumn(field)">{{field}}</button>
+				}
+				</div>
+			</div>
+			<div class="card-footer d-flex justify-content-center p-3">
+				<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
+			</div>
 		</div>
-	</div>
-	<div class="card-footer d-flex justify-content-center p-3">
-		<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
-	</div>
-</div>
+	}
+	@case ('schema') {
+		<div class="card text-bg-light">
+			<div class="card-header p-3">
+				<i class="fa-duotone fa-ruler"></i>
+		    	<h5 class="card-title mb-0">Which grading method does your course use?</h5>
+			</div>
+			<div class="card-body p-4">
+		    		<div class="fieldlist">
+			    		<button type="button" class="btn btn-secondary btn-tall" style="flex-basis: 7rem;" (click)="selectGradeSchema('A-F')">A &ndash; F</button>
+			    		<button type="button" class="btn btn-secondary btn-tall" style="flex-basis: 7rem;" (click)="selectGradeSchema('CR/NC')">CR / NC</button>
+				</div>
+			</div>
+			<div class="card-footer d-flex justify-content-center p-3">
+				<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
+			</div>
+		</div>
+	}
+	@case ('dates') {
+		<div class="card text-bg-light">
+			<div class="card-header p-3">
+				<i class="fa-duotone fa-calendar-days"></i>
+			    <h5 class="card-title mb-0">Use Blackboard "Last Access" as "Last Attended" Date?</h5>
+			</div>
+			<div class="card-body p-4">
+				    <div class="fieldlist">
+					    <button type="button" class="btn btn-secondary btn-tall" style="flex-basis: 7rem;" (click)="selectCopyBlackboardDates('no')">No</button>
+					    <button type="button" class="btn btn-secondary btn-tall" style="flex-basis: 7rem;" (click)="selectCopyBlackboardDates('yes')">Yes</button>
+				</div>
+			</div>
+			<div class="card-footer d-flex justify-content-center p-3">
+				<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
+			</div>
+		</div>
+	}
+
+}

@@ -4,14 +4,6 @@
 
 	    <h5 class="card-title mb-0">Finalize your grades</h5>
 	</div>
-	<div class="card-body d-flex justify-content-center">
-		<label class="form-check-label me-3" for="flexSwitchCheckChecked">A &ndash; F</label>
-		<div class="form-check form-switch">
-			  <input class="form-check-input" type="checkbox" role="switch" [formControl]="schemaToggle">
-		</div>
-		<label class="form-check-label ms-2" for="flexSwitchCheckChecked">Credit / No Credit</label>
-	</div>
-
 	<div class="data-table">
 	    <header>
 		    <div>Student</div>
@@ -30,5 +22,6 @@
 	<div class="card-footer p-3 d-flex justify-content-center gap-2">
 		<button type="button" class="btn btn-primary" (click)="doSaveBannerFile()">Save Banner File</button>
 		<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
+
 	</div>
 </div>

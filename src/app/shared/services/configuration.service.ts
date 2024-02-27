@@ -7,7 +7,7 @@ import { GradeSchema } from '@models/grade-schema.model';
 export class ConfigurationService {
 	public appNameFull = "BbGradesToBanner";
 	public appNameShort = "BbGradesToBanner";
-	public appVersionText = "v1.0.0";
+	public appVersionText = "v1.1.0";
 
 	public creditNoCreditGradeSchema = new GradeSchema([
 		{
