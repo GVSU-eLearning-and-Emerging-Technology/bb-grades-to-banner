@@ -38,6 +38,8 @@
 			"@resolvers/*": ["src/app/shared/resolvers/*"],
 			"@enums/*": ["src/app/shared/enums/*"],
 			"@functions/*": ["src/app/shared/functions/*"],
+			"@directives/*": ["src/app/shared/directives/*"],
+			"@validators/*": ["src/app/shared/validators/*"],
 			"@shared/*": ["src/app/shared/*"]
 		}
 
