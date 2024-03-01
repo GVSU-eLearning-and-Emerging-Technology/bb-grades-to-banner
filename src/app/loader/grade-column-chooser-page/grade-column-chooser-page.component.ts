@@ -30,7 +30,11 @@ export class GradeColumnChooserPageComponent {
 
 	selectGradeColumn(fieldName: CellValue) {
 		this.dataService.setBlackboardGradeField(fieldName as string);
-		this.state_.set('schema');
+		if (this.dataService.blackboardData_()!.field(fieldName! as string)!.some((rawGrade: CellValue) => !!rawGrade && !!(rawGrade as string).match(/\d/))) {
+			this.state_.set('schema');
+		} else {
+			this.state_.set('dates');
+		}
 	}
 
 	selectGradeSchema(type: GradeSchemaType) {
