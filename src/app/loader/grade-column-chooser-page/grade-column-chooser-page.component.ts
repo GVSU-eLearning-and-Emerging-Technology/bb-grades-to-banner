@@ -36,8 +36,8 @@ export class GradeColumnChooserPageComponent {
 	selectGradeSchema(type: GradeSchemaType) {
 		this.dataService.setGradeSchema(
 			type == "A-F"
-			? this.configService.creditNoCreditGradeSchema
-			: this.configService.defaultGradeSchema
+			? this.configService.defaultGradeSchema
+			: this.configService.creditNoCreditGradeSchema
 		);
 		this.state_.set('dates');
 	}
