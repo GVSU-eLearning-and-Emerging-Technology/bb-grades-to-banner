@@ -19,6 +19,7 @@
 	font-weight:bold;
 }
 
+
 :root {
 	--bs-primary: #0065A7;
 	--bs-primary-bg-subtle: #E1EFFF;
@@ -42,12 +43,12 @@ html {
 }
 
 h1 {
-	font-family: "Noto Serif", serif;
+	font-family: "EB Garamond", serif;
 	font-size: clamp(2rem, 3vw, 3vw);
 }
 
 h5 {
-	font-family: "Noto Serif", serif;
+	font-family: "EB Garamond", serif;
 	font-size: 1.5rem;
 	text-align: center;
 }
