@@ -2,7 +2,7 @@
 
 	@case ('column') {
 		<header class="alert alert-primary d-flex gap-3">
-			<i class="fa-duotone fa-info-circle text-dark fa-3x"></i>
+			<i class="fa-duotone fa-info-circle text-primary fa-3x"></i>
 			<div>
 				<p class="mb-0">Below is a list of the columns from your Blackboard Gradebook file. Click the button with the name of the column containing your students' final grades.</p>
 			</div>
@@ -43,7 +43,7 @@
 	}
 	@case ('schema') {
 		<header class="alert alert-primary d-flex gap-3">
-			<i class="fa-duotone fa-info-circle text-dark fa-3x"></i>
+			<i class="fa-duotone fa-info-circle text-primary fa-3x"></i>
 			<div>
 				<p class="mb-0">Your grade column appears to contain numbers. Click one of the buttons below to convert those numbers to the corresponding grading scale.</p>
 			</div>
@@ -67,7 +67,7 @@
 	}
 	@case ('dates') {
 		<header class="alert alert-primary d-flex gap-3">
-			<i class="fa-duotone fa-info-circle text-dark fa-3x"></i>
+			<i class="fa-duotone fa-info-circle text-primary fa-3x"></i>
 			<div>
 				<p class="mb-0">When submitting final grades, any F, NC, or I grades must include the student's "Last Date of Academic Activity" (LDAA). Your Blackboard grade file includes a date that the student last accessed Blackboard. This date can automatically be filled in as each student's LDAA.</p>
 			</div>
@@ -84,6 +84,21 @@
 					    <button type="button" class="btn btn-secondary btn-tall" style="flex-basis: 7rem;" (click)="selectCopyBlackboardDates('yes')">Yes</button>
 				</div>
 			</div>
+			<div class="card-footer d-flex justify-content-center p-3">
+				<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
+			</div>
+		</div>
+	}
+
+	@case ('error') {
+		<header class="alert alert-warning d-flex gap-3">
+			<i class="fa-duotone fa-triangle-exclamation text-warning-subtle fa-3x"></i>
+			<div>
+				<p class="mb-0">The Banner template file you chose doesn't seem to have a "Midterm Grade" or "Final Grade" column. There's a chance you may have selected the wrong file. Use the "Start Over" button below to choose new files.</p>
+			</div>
+		</header>
+
+		<div class="card text-bg-light">
 			<div class="card-footer d-flex justify-content-center p-3">
 				<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
 			</div>

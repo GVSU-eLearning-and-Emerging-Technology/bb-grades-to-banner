@@ -6,7 +6,7 @@ import { GradeSchemaType, WhichGradeType } from '@shared/models/grade-schema.mod
 import { ConfigurationService } from '@services/configuration.service';
 
 
-type State = "column" | "which" | "schema" | "dates";
+type State = "column" | "which" | "schema" | "dates" | "error";
 type YesNo = "yes" | "no";
 
 @Component({
@@ -45,7 +45,7 @@ export class GradeColumnChooserPageComponent {
 			this.dataService.setWhichGrade("final");
 			this.state_.set('dates');
 		} else {
-			// this shouldn't be reached unless there's a problem with their file
+			this.state_.set('error');
 		}
 	}
 
