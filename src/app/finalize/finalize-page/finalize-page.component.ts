@@ -123,9 +123,7 @@ export class FinalizePageComponent implements OnDestroy {
 	// TODO: add a timer to reload the page (clearing out the data) after a certain time
 	// TODO: add a message on the Finalize screen to say the page will be reloaded.
 	// TODO: in download toast make sure to mention they should delete the file
-	// TODO: verify dates are in correct format
 	// BUG: column chooser has all the metadata in it—fixed with new Bb file?
-	// TODO: Prevent grades of A+ and D-
 	// TODO: make sure every student has a grade entered
-	// TODO: run a validator against the grade column
+	// TODO: prevent download if form data is invalid
 }
