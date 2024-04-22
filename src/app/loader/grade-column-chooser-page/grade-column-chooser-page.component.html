@@ -1,6 +1,12 @@
 @switch (state_()) {
 
 	@case ('column') {
+		<header class="alert alert-primary d-flex gap-3">
+			<i class="fa-duotone fa-info-circle text-dark fa-3x"></i>
+			<div>
+				<p class="mb-0">Below is a list of the columns from your Blackboard Gradebook file. Click the button with the name of the column containing your students' final grades.</p>
+			</div>
+		</header>
 		<div class="card text-bg-light">
 			<div class="card-header p-3">
 				<i class="fa-duotone fa-table-columns"></i>
@@ -18,7 +24,31 @@
 			</div>
 		</div>
 	}
+	@case ('which') {
+		<div class="card text-bg-light">
+			<div class="card-header p-3">
+				<i class="fa-duotone fa-table-columns"></i>
+			    <h5 class="card-title mb-0">Are these midterm or final grades?</h5>
+			</div>
+			<div class="card-body p-4">
+			    <div class="fieldlist">
+				    <button type="button" class="btn btn-secondary btn-tall" style="flex-basis: 7rem;" (click)="selectWhichGradeType('midterm')">Midterm</button>
+				    <button type="button" class="btn btn-secondary btn-tall" style="flex-basis: 7rem;" (click)="selectWhichGradeType('final')">Final</button>
+				</div>
+			</div>
+			<div class="card-footer d-flex justify-content-center p-3">
+				<button type="button" class="btn btn-outline-secondary" (click)="doStartOver()">Start Over</button>
+			</div>
+		</div>
+	}
 	@case ('schema') {
+		<header class="alert alert-primary d-flex gap-3">
+			<i class="fa-duotone fa-info-circle text-dark fa-3x"></i>
+			<div>
+				<p class="mb-0">Your grade column appears to contain numbers. Click one of the buttons below to convert those numbers to the corresponding grading scale.</p>
+			</div>
+		</header>
+
 		<div class="card text-bg-light">
 			<div class="card-header p-3">
 				<i class="fa-duotone fa-ruler"></i>
@@ -36,6 +66,13 @@
 		</div>
 	}
 	@case ('dates') {
+		<header class="alert alert-primary d-flex gap-3">
+			<i class="fa-duotone fa-info-circle text-dark fa-3x"></i>
+			<div>
+				<p class="mb-0">When submitting final grades, any F, NC, or I grades must include the student's "Last Date of Academic Activity" (LDAA). Your Blackboard grade file includes a date that the student last accessed Blackboard. This date can automatically be filled in as each student's LDAA.</p>
+			</div>
+		</header>
+
 		<div class="card text-bg-light">
 			<div class="card-header p-3">
 				<i class="fa-duotone fa-calendar-days"></i>

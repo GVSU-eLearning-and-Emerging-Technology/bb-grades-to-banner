@@ -9,9 +9,9 @@
 
 	</div>
 	<div class="validation" [class]="{'even': isEven}">
-		<input class="form-control" [class]="{'is-invalid': editRowForm.errors?.['dateNeeded'] || editRowForm.errors?.['invalidDate']}" type="text" formControlName="lastAttendedDate"/>
-		@if (editRowForm.errors?.['dateNeeded']) {
-			<div class="validation-message">Grades of F or NC require a last attended date</div>
+		<input class="form-control" [class]="{'is-invalid': ((whichGrade_() == 'final') && editRowForm.errors?.['dateNeeded']) || editRowForm.errors?.['invalidDate']}" type="text" formControlName="lastAttendedDate"/>
+		@if ((whichGrade_() == "final") && editRowForm.errors?.['dateNeeded']) {
+			<div class="validation-message">Grades of F, NC, or I require a last attended date</div>
 		}
 		@if (editRowForm.errors?.['invalidDate']) {
 			<div class="validation-message">Please enter dates as mm/dd/yyyy</div>

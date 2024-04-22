@@ -2,11 +2,11 @@ import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { CellValue } from '@shared/types/cell-value';
-import { GradeSchemaType } from '@shared/models/grade-schema.model';
+import { GradeSchemaType, WhichGradeType } from '@shared/models/grade-schema.model';
 import { ConfigurationService } from '@services/configuration.service';
 
 
-type State = "column" | "schema" | "dates";
+type State = "column" | "which" | "schema" | "dates";
 type YesNo = "yes" | "no";
 
 @Component({
@@ -33,8 +33,25 @@ export class GradeColumnChooserPageComponent {
 		if (this.dataService.blackboardData_()!.field(fieldName! as string)!.some((rawGrade: CellValue) => !!rawGrade && !!(rawGrade as string).match(/\d/))) {
 			this.state_.set('schema');
 		} else {
-			this.state_.set('dates');
+			this.tryToDetectWhichGrade();
 		}
+	}
+
+	tryToDetectWhichGrade() {
+		if (this.dataService.bannerData_()!.hasField("Midterm Grade")) {
+			this.dataService.setWhichGrade("midterm");
+			this.selectCopyBlackboardDates('no');
+		} else if (this.dataService.bannerData_()!.hasField("Final Grade")) {
+			this.dataService.setWhichGrade("final");
+			this.state_.set('dates');
+		} else {
+			// this shouldn't be reached unless there's a problem with their file
+		}
+	}
+
+	selectWhichGradeType(which: WhichGradeType) {
+		this.dataService.setWhichGrade(which);
+		this.state_.set('dates');
 	}
 
 	selectGradeSchema(type: GradeSchemaType) {
@@ -43,7 +60,7 @@ export class GradeColumnChooserPageComponent {
 			? this.configService.defaultGradeSchema
 			: this.configService.creditNoCreditGradeSchema
 		);
-		this.state_.set('dates');
+		this.tryToDetectWhichGrade();
 	}
 
 	selectCopyBlackboardDates(type: YesNo) {

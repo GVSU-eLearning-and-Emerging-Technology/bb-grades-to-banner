@@ -61,6 +61,14 @@ app-root {
 	display: contents;
 }
 
+header {
+	max-width:50rem;
+	margin-bottom: 3rem;
+}
+
+
+
+
 .card-header {
 	background-color: var(--bs-primary-bg-subtle);
 	display: flex;

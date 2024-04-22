@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, computed } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CellValue } from '@shared/types/cell-value';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { gradeDateValidator } from '@shared/validators/grade-date-validator.directive';
+import { ConfigurationService } from '@services/configuration.service';
+import { DataService } from '@services/data.service';
 
 @Component({
 	selector: 'data-row',
@@ -14,6 +16,12 @@ export class DataRowComponent implements OnInit, OnDestroy {
 	@Input() isEven = false;
 	@Output() onUpdate = new EventEmitter<Record<string, string>>();
 
+	public whichGrade_ = this.dataService.whichGrade_;
+
+	public gradeColumnIndex_ = computed(() => {
+		return this.whichGrade_() == "midterm" ? 6 : 7;
+	});
+
 	private destroyed$ = new Subject < boolean > ();
 
 	public editRowForm = new FormGroup({
@@ -21,10 +29,15 @@ export class DataRowComponent implements OnInit, OnDestroy {
 		lastAttendedDate: new FormControl('')
 	}, { validators: gradeDateValidator})
 
+	constructor(
+		private dataService: DataService
+	) { }
+
+
 	ngOnInit(): void {
 		this.editRowForm.patchValue({
-			grade: this.rowData[6] as string,
-			lastAttendedDate: this.rowData[7] as string
+			grade: this.rowData[this.gradeColumnIndex_()] as string,
+			lastAttendedDate: this.rowData[this.gradeColumnIndex_() + 1] as string
 		});
 
 		this.editRowForm.valueChanges

@@ -16,13 +16,13 @@ div.card {
 	align-items: stretch;
 }
 
-header {
+.data-table > header {
 	font-weight: bold;
 	display: contents;
 	grid-area: header;
 }
 
-header > div {
+.data-table > header > div {
 	padding: 1rem;
 	color: var(--bs-white);
 	background: var(--bs-secondary);

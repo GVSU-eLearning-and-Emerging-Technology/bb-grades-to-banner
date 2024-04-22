@@ -22,13 +22,20 @@ export class FinalizePageComponent implements OnDestroy {
 	public schemaToggle = new FormControl(false);
 	public isDataDirty_ = signal(false);
 	public gradeField!: string;
+	public gradeColumnIndex_ = computed(() => {
+		const whichGrade = this.dataService.whichGrade_();
+		return whichGrade == "midterm" ? 6 : 7;
+	});
 
 	public mergedData_ = computed<DataTable>(() => {
 		let originalBlackboardData = this.dataService.blackboardData_()!;
+		const gradeColumnIndex = this.gradeColumnIndex_();
+
+
 		let originalBannerData = this.dataService
 			.bannerData_()!
 			.filterRows((row: CellValue[]): boolean => {
-				return row[6] != 'W';
+				return row[gradeColumnIndex] != 'W';
 			});
 		this.gradeField = this.dataService.blackboardGradeField_()!;
 		const copyBlackboardDates = this.dataService.copyBlackboardDates_();
@@ -70,9 +77,10 @@ export class FinalizePageComponent implements OnDestroy {
 			.mergeWithRecords('Student ID', blackboardData)
 			.copyFromFieldToField(
 				this.gradeField,
-				originalBannerData.fieldNames[6] as string
+				originalBannerData.fieldNames[gradeColumnIndex] as string
 			);
-		if (copyBlackboardDates) {
+		if (!!copyBlackboardDates) {
+			console.debug("mergin");
 			mergedBannerData = mergedBannerData
 				.copyFromFieldToField('Last Access', 'Last Attended Date');
 		}
@@ -81,7 +89,7 @@ export class FinalizePageComponent implements OnDestroy {
 
 	constructor(
 		private configService: ConfigurationService,
-		private dataService: DataService,
+		protected dataService: DataService,
 		private router: Router,
 		private notificationService: NotificationService
 	) { }
@@ -92,8 +100,8 @@ export class FinalizePageComponent implements OnDestroy {
 	}
 
 	doUpdateRow(n: number, data: Record<string, string>) {
-		this.mergedData_().updateCell(n, 6, data['grade']);
-		this.mergedData_().updateCell(n, 7, data['lastAttendedDate']);
+		this.mergedData_().updateCell(n, this.gradeColumnIndex_(), data['grade']);
+		this.mergedData_().updateCell(n, this.gradeColumnIndex_() + 1, data['lastAttendedDate']);
 		this.isDataDirty_.set(true);
 	}
 
@@ -126,4 +134,5 @@ export class FinalizePageComponent implements OnDestroy {
 	// BUG: column chooser has all the metadata in it—fixed with new Bb file?
 	// TODO: make sure every student has a grade entered
 	// TODO: prevent download if form data is invalid
+	// QUESTION: are W students supposed to appear in download file?
 }

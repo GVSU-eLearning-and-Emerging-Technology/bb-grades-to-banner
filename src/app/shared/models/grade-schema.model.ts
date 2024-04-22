@@ -2,8 +2,10 @@ interface GradeRange {
 	grade: string,
 	minimumPercentage: number,
 	maximumPercentage: number,
+
 }
 
+export type WhichGradeType = "midterm" | "final";
 export type GradeSchemaType = "A-F" | "CR/NC";
 
 export class GradeSchema {
