@@ -55,6 +55,13 @@ export class DataTable {
 		return this.fieldNames.includes(f);
 	}
 
+	renameField(original: string, renamed: string): void {
+		const i = this.fieldIndex(original);
+		if (!!i) {
+			this.fieldNames[i] = renamed;
+		}
+	}
+
 	fieldIndex(f: string): number | undefined {
 		const n = this.fieldNames.indexOf(f);
 		if (n == -1) {
