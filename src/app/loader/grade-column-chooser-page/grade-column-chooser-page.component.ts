@@ -4,6 +4,7 @@ import { DataService } from '@services/data.service';
 import { CellValue } from '@shared/types/cell-value';
 import { GradeSchemaType, WhichGradeType } from '@shared/models/grade-schema.model';
 import { ConfigurationService } from '@services/configuration.service';
+import { getUuid } from '@functions/string-utils';
 
 
 type State = "column" | "which" | "schema" | "dates" | "error";
@@ -29,8 +30,10 @@ export class GradeColumnChooserPageComponent {
 	}
 
 	selectGradeColumn(fieldName: CellValue) {
-		this.dataService.setBlackboardGradeField(fieldName as string);
-		if (this.dataService.blackboardData_()!.field(fieldName! as string)!.some((rawGrade: CellValue) => !!rawGrade && !!(rawGrade as string).match(/\d/))) {
+		const uniqueGradeFieldName = getUuid();
+		this.dataService.blackboardData_()!.renameField(fieldName as string, uniqueGradeFieldName);
+		this.dataService.setBlackboardGradeField(uniqueGradeFieldName);
+		if (this.dataService.blackboardData_()!.field(uniqueGradeFieldName)!.some((rawGrade: CellValue) => !!rawGrade && !!(rawGrade as string).match(/\d/))) {
 			this.state_.set('schema');
 		} else {
 			this.tryToDetectWhichGrade();
