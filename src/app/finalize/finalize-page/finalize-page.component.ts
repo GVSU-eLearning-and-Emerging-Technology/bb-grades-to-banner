@@ -54,7 +54,11 @@ export class FinalizePageComponent implements OnDestroy {
 			.transformFieldValues(
 				this.gradeField,
 				(rawGrade: CellValue): CellValue => {
-					if (!!rawGrade && !!(rawGrade as string).match(/\d/)) {
+					const re = /^Ready to Post\(([^\)]{1,2})\)/;
+					if (!!rawGrade && !!(rawGrade as string).match(re)) {
+						const found = (rawGrade as string).match(re);
+						return <string>found![1];
+					} else if (!!rawGrade && !!(rawGrade as string).match(/\d/)) {
 						return (
 							gradeSchema.gradeForPercentage(+rawGrade) ??
 							''
@@ -75,12 +79,21 @@ export class FinalizePageComponent implements OnDestroy {
 
 		let mergedBannerData = originalBannerData
 			.mergeWithRecords('Student ID', blackboardData)
+			.transformFieldValues(
+				'Last Attended Date',
+				(rawDate: CellValue): CellValue => {
+					if (!!rawDate && (typeof rawDate == "object") && ((rawDate as any).constructor.name == "Date")) {
+						return DateTime.fromJSDate(rawDate).toFormat('LL/dd/y');
+					} else {
+						return rawDate;
+					}
+				}
+			)
 			.copyFromFieldToField(
 				this.gradeField,
 				originalBannerData.fieldNames[gradeColumnIndex] as string
 			);
 		if (!!copyBlackboardDates) {
-			console.debug("mergin");
 			mergedBannerData = mergedBannerData
 				.copyFromFieldToField('Last Access', 'Last Attended Date');
 		}
@@ -135,4 +148,9 @@ export class FinalizePageComponent implements OnDestroy {
 	// TODO: make sure every student has a grade entered
 	// TODO: prevent download if form data is invalid
 	// QUESTION: are W students supposed to appear in download file?
+	// BUG: if the column from Blackboard is named "Final Grade" (or presumably Midterm Grade) that column will also be removed from the export file and thus no grade will be imported into Banner
+	// TODO: if last attend date has info, parse it correctly (e.g. date already from Banner)
+	// TODO: remove "Ready to post" from Banner
+	// TODO: parse Blackboard file for name of downloading file
+
 }
