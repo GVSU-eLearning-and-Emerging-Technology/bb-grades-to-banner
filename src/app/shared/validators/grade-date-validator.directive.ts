@@ -19,6 +19,9 @@ export const gradeDateValidator: ValidatorFn = (control: AbstractControl): Valid
 	if (!!grade?.value && !validGrades.includes(grade?.value)) {
 		errors = {...errors, invalidGrade: true };
 	}
+	if (grade?.value.match(/^$/)) {
+		errors = {...errors, emptyGrade: true };
+	}
 
 	return Object.keys(errors).length > 0 ? errors : null;
 };
