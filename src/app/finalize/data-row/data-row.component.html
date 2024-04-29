@@ -2,7 +2,7 @@
 	<div [class]="{'even': isEven}"><span>{{rowData[2]}}</span></div>
 	<div [class]="{'even': isEven}"><span>{{rowData[3]}}</span></div>
 	<div class="validation" [class]="{'even': isEven}">
-		<input class="form-control" [class]="{'is-invalid': editRowForm.errors?.['invalidGrade']}" type="text" formControlName="grade"/>
+		<input class="form-control" [class]="{'is-invalid': editRowForm.errors?.['invalidGrade'] || editRowForm.errors?.['emptyGrade']}" type="text" formControlName="grade"/>
 		@if (editRowForm.errors?.['invalidGrade']) {
 			<div class="validation-message">Not a valid grade</div>
 		}
