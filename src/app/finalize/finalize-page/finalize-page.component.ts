@@ -139,7 +139,7 @@ export class FinalizePageComponent implements OnDestroy {
 						.omitFields([this.gradeField, 'Last Access'])
 						.exportForXslx(),
 					{
-						fileName: 'Import this into Banner.xlsx',
+						fileName: `Import this into Banner (${this.dataService.courseIdentifier_()}).xlsx`,
 					}
 				);
 				this.notificationService.blue({
