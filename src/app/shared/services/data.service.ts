@@ -16,6 +16,8 @@ export class DataService {
 	public gradeSchema_ = signal<GradeSchema | null>(null);
 	public copyBlackboardDates_ = signal(false);
 
+	public courseIdentifier_ = signal<string | null>(null);
+
 	constructor() {}
 
 	setBlackboardData(data: DataTable) {
@@ -45,6 +47,11 @@ export class DataService {
 	setWhichGrade(which: WhichGradeType) {
 		this.whichGrade_.set(which);
 	}
+
+	setCourseIdentifier(which: string) {
+		this.courseIdentifier_.set(which);
+	}
+
 
 	setCopyBlackboardDates(b: boolean) {
 		this.copyBlackboardDates_.set(b);
