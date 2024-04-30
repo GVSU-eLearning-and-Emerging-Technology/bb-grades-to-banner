@@ -28,6 +28,14 @@ export class BlackboardLoaderComponent {
 				let dataTable = new DataTable(fr.result as string);
 				dataTable.setFileName(file.name);
 				this.dataService.setBlackboardData(dataTable);
+				this.dataService.setCourseIdentifier(
+					file.name
+						.split('_')[1]
+						.replace(/^GV/, "")
+						.split('.')
+						.slice(0, 2)
+						.join('-')
+				);
 			}
 
 			fr.readAsText(file);
