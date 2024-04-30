@@ -10,6 +10,7 @@ import { NotificationService } from '@services/notification.service';
 import { GradeSchema } from '@models/grade-schema.model';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { areGradeAndDateValid } from '@functions/grade-utils';
 
 @Component({
 	selector: 'app-finalize-page',
@@ -119,18 +120,33 @@ export class FinalizePageComponent implements OnDestroy {
 	}
 
 	async doSaveBannerFile() {
-		if (!!this.mergedData_()) {
-			await writeXlsxFile(
-				this.mergedData_()!
-					.omitFields([this.gradeField, 'Last Access'])
-					.exportForXslx(),
-				{
-					fileName: 'Import this into Banner.xlsx',
-				}
+		const cannotExport = this.mergedData_().rows.some((row: CellValue[]): boolean => {
+			return !areGradeAndDateValid(
+				row[this.gradeColumnIndex_()] as string,
+				row[this.gradeColumnIndex_() + 1] as string,
 			);
-			this.notificationService.blue({
-				message: 'Your Banner file has been downloaded and is ready to be imported.',
+		})
+
+		if (cannotExport) {
+			this.notificationService.warning({
+				message: `Please provide a grade for each student and be sure that the "Last Attended Date" is provided where needed.`,
+				title: "You're not ready yet!"
 			});
+		} else {
+			if (!!this.mergedData_()) {
+				await writeXlsxFile(
+					this.mergedData_()!
+						.omitFields([this.gradeField, 'Last Access'])
+						.exportForXslx(),
+					{
+						fileName: 'Import this into Banner.xlsx',
+					}
+				);
+				this.notificationService.blue({
+					message: 'Your Banner file has been downloaded and is ready to be imported.',
+				});
+			}
+
 		}
 	}
 
@@ -148,9 +164,6 @@ export class FinalizePageComponent implements OnDestroy {
 	// TODO: make sure every student has a grade entered
 	// TODO: prevent download if form data is invalid
 	// QUESTION: are W students supposed to appear in download file?
-	// BUG: if the column from Blackboard is named "Final Grade" (or presumably Midterm Grade) that column will also be removed from the export file and thus no grade will be imported into Banner
-	// TODO: if last attend date has info, parse it correctly (e.g. date already from Banner)
-	// TODO: remove "Ready to post" from Banner
 	// TODO: parse Blackboard file for name of downloading file
 
 }
