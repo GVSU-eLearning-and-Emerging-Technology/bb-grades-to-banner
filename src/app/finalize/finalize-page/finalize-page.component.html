@@ -13,18 +13,26 @@
 	    <h5 class="card-title mb-0">Take a moment to double-check your {{dataService.whichGrade_()}} grades</h5>
 	</div>
 	<div class="data-table">
-	    <header>
+		<nav>
+			Show:
+			<a href="javascript:void(0);" (click)="filterShowAll()" [class.selected]="dataService.currentFilter_() == 0">All</a> &bull;
+			<a (click)="filterNeedsDates()" href="javascript:void(0);" [class.selected]="dataService.currentFilter_() == 1">Need Dates</a> &bull;
+			<a (click)="filterNeedsGrades()" href="javascript:void(0);" [class.selected]="dataService.currentFilter_() == 2">Need Grades</a>
+		</nav>
+		<header>
 		    <div>Student</div>
 		    <div>G Number</div>
 		    <div>Grade</div>
 		    <div>Last Attended Date</div>
-	    </header>
+		</header>
     		@for (row of mergedData_().rows; track row; let e = $even, index = $index) {
-    			<data-row
-			    [rowData]="row"
-			    [isEven]="e"
-			    (onUpdate)="doUpdateRow(index, $event)">
-		    </data-row>
+		    @defer {
+				<data-row
+					[rowData]="row"
+					[isEven]="e"
+					(onUpdate)="doUpdateRow(index, $event)">
+				</data-row>
+			}
     		}
 	</div>
 	<div class="card-footer p-3 d-flex justify-content-center gap-2">

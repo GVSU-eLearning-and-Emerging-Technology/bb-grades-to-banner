@@ -16,7 +16,7 @@ export function areGradeAndDateValid(grade: string, date:string, errors: object 
 			(errors as any).invalidGrade = true;
 		}
 	}
-	if (grade.match(/^$/)) {
+	if (!!grade && grade.match(/^$/)) {
 		if (!!errors) {
 			(errors as any).emptyGrade = true;
 		}

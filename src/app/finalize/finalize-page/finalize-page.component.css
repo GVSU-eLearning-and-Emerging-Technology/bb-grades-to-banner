@@ -12,7 +12,7 @@ div.card {
 	display: grid;
 	grid-template-columns: 20rem 10rem 10rem 15rem;
 	grid-template-rows: 1fr;
-	grid-template-areas: "header header header header" "main main main main";
+	grid-template-areas: "nav nav nav nav" "header header header header" "main main main main";
 	align-items: stretch;
 }
 
@@ -21,6 +21,26 @@ div.card {
 	display: contents;
 	grid-area: header;
 }
+
+.data-table > nav {
+	font-weight: normal;
+	grid-area: nav;
+	background: var(--bs-dark);
+	color: rgba(255, 255, 255, .5);
+	padding: 0.5rem;
+	font-size: small;
+	text-align: center;
+}
+
+.data-table > nav > a {
+	color: rgba(255, 255, 255, .75);
+}
+
+.data-table > nav > a.selected {
+	color: rgba(255, 255, 255, 1);
+	font-weight: bold;
+}
+
 
 .data-table > header > div {
 	padding: 1rem;

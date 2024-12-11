@@ -1,7 +1,7 @@
 import { Component, OnDestroy, computed, signal, untracked } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTable } from '@models/data-table.model';
-import { DataService } from '@services/data.service';
+import { DataService, FilterType } from '@services/data.service';
 import { CellValue } from '@shared/types/cell-value';
 import writeXlsxFile from 'write-excel-file';
 import { DateTime } from 'luxon';
@@ -117,6 +117,18 @@ export class FinalizePageComponent implements OnDestroy {
 		this.mergedData_().updateCell(n, this.gradeColumnIndex_(), data['grade']);
 		this.mergedData_().updateCell(n, this.gradeColumnIndex_() + 1, data['lastAttendedDate']);
 		this.isDataDirty_.set(true);
+	}
+
+	filterNeedsDates() {
+		this.dataService.setCurrentFilter(FilterType.NeedsDates);
+	}
+
+	filterNeedsGrades() {
+		this.dataService.setCurrentFilter(FilterType.NeedsGrades);
+	}
+
+	filterShowAll() {
+		this.dataService.setCurrentFilter(FilterType.All);
 	}
 
 	async doSaveBannerFile() {

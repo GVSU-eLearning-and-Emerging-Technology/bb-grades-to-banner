@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, computed } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, computed, effect } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CellValue } from '@shared/types/cell-value';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { gradeDateValidator } from '@shared/validators/grade-date-validator.directive';
 import { ConfigurationService } from '@services/configuration.service';
-import { DataService } from '@services/data.service';
+import { DataService, FilterType } from '@services/data.service';
 
 @Component({
 	selector: 'data-row',
@@ -18,6 +18,23 @@ export class DataRowComponent implements OnInit, OnDestroy {
 
 	public whichGrade_ = this.dataService.whichGrade_;
 
+	public currentFilter_ = this.dataService.currentFilter_;
+
+	public isVisible_ = computed(() => {
+		const filter = this.currentFilter_();
+		const whichGrade = this.whichGrade_();
+		if (filter == FilterType.NeedsDates) {
+			return (whichGrade == "final") && !!this.editRowForm.errors?.['dateNeeded'];
+
+		} else if (filter == FilterType.NeedsGrades) {
+			const v = this.editRowForm.get('grade')!.value ?? '';
+			return !v || (v.length == 0) || /^\s+$/.test(v);
+
+		} else {
+			return true;
+		}
+	});
+
 	public gradeColumnIndex_ = computed(() => {
 		return this.whichGrade_() == "midterm" ? 6 : 7;
 	});
@@ -30,8 +47,17 @@ export class DataRowComponent implements OnInit, OnDestroy {
 	}, { validators: gradeDateValidator})
 
 	constructor(
-		private dataService: DataService
-	) { }
+		public dataService: DataService
+	) {
+		effect(() => {
+			const filler = this.dataService.lastAttendedDateFiller_();
+
+			if (!!this.editRowForm.errors?.['dateNeeded']) {
+				this.editRowForm.get('lastAttendedDate')?.setValue(filler);
+			}
+
+		});
+	}
 
 
 	ngOnInit(): void {
@@ -39,6 +65,8 @@ export class DataRowComponent implements OnInit, OnDestroy {
 			grade: this.rowData[this.gradeColumnIndex_()] as string,
 			lastAttendedDate: this.rowData[this.gradeColumnIndex_() + 1] as string
 		});
+
+
 
 		this.editRowForm.valueChanges
 			.pipe(
@@ -67,6 +95,10 @@ export class DataRowComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.destroyed$.next(true);
 		this.destroyed$.complete();
+	}
+
+	setFiller() {
+		this.dataService.setLastAttendedDateFiller(this.editRowForm.get('lastAttendedDate')!.value!);
 	}
 
 

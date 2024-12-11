@@ -2,6 +2,12 @@ import { Injectable, signal } from '@angular/core';
 import { DataTable } from '@models/data-table.model';
 import { GradeSchema, WhichGradeType } from '@models/grade-schema.model';
 
+export enum FilterType {
+	All,
+	NeedsDates,
+	NeedsGrades
+}
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -17,6 +23,10 @@ export class DataService {
 	public copyBlackboardDates_ = signal(false);
 
 	public courseIdentifier_ = signal<string | null>(null);
+
+	public currentFilter_ = signal<FilterType>(FilterType.All);
+
+	public lastAttendedDateFiller_ = signal<string | null>(null);
 
 	constructor() {}
 
@@ -55,6 +65,14 @@ export class DataService {
 
 	setCopyBlackboardDates(b: boolean) {
 		this.copyBlackboardDates_.set(b);
+	}
+
+	setCurrentFilter(t: FilterType) {
+		this.currentFilter_.set(t);
+	}
+
+	setLastAttendedDateFiller(t: string) {
+		this.lastAttendedDateFiller_.set(t);
 	}
 
 }

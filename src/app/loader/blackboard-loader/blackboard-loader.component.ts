@@ -29,12 +29,14 @@ export class BlackboardLoaderComponent {
 				dataTable.setFileName(file.name);
 				this.dataService.setBlackboardData(dataTable);
 				this.dataService.setCourseIdentifier(
-					file.name
-						.split('_')[1]
-						.replace(/^GV/, "")
-						.split('.')
-						.slice(0, 2)
-						.join('-')
+					/_GV/.test(file.name)
+						? file.name
+							.split('_')[1]
+							.replace(/^GV/, "")
+							.split('.')
+							.slice(0, 2)
+							.join('-')
+						: file.name
 				);
 			}
 

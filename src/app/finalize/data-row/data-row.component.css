@@ -34,3 +34,12 @@ form {
 	font-weight: bold;
 	line-height: 0.9rem;
 }
+
+.copy-date-link {
+	padding: 0;
+	align-self: end;
+}
+
+.copy-date-link button {
+	font-size: x-small !important;
+}
